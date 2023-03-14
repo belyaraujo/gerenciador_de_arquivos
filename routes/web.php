@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CadastroUsuarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,18 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/upload.arquivos', function () {
+    return view('upload_arquivos');
+})->middleware(['auth', 'verified'])->name('upload.arquivos');
+
+Route::get('/arquivos.enviados', function () {
+    return view('arquivos_enviados');
+})->middleware(['auth', 'verified'])->name('arquivos.enviados');
+
+Route::get('/cadastro',  [CadastroUsuarioController::class, 'index'])->middleware(['auth', 'verified'])->name('cadastro');
+
+Route::post('/cadastro',  [CadastroUsuarioController::class, 'store'])->middleware(['auth', 'verified'])->name('cadastro');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
